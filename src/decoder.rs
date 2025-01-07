@@ -5,11 +5,14 @@ use std::ptr;
 
 const BUFFER_SIZE: usize = 32 * 1024;
 
+// NOTE: unsafe to device Clone or Copy, otherwise
+// there can be multiple copies of the same inner LZ4 pointer
 #[derive(Debug)]
 struct DecoderContext {
     c: LZ4FDecompressionContext,
 }
 
+// NOTE: unsafe to derive Clone or Copy
 #[derive(Debug)]
 pub struct Decoder<R> {
     c: DecoderContext,
